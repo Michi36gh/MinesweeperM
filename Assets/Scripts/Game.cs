@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
     private Board board;
     private Cell[,] state;
     private bool gameover;
+    private bool firstClick = true;
 
     private void OnValidate()
     {
@@ -138,10 +139,30 @@ public class Game : MonoBehaviour
                 
                 Flag();
             } else if (Input.GetMouseButtonDown(0)) {
-                //if (Cell.Type.) //!!!!!!!!!!!!!!!!!!!!!!!!!!! wenn erstes feld nicht null dann NewGame()
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!! wenn erstes feld nicht null dann NewGame()
+                if (firstClick){
+                    FirstClick();
+                }
                 Reveal();
             }
         }
+    }
+
+    private void FirstClick(){
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
+        Cell cell = GetCell(cellPosition.x, cellPosition.y);
+
+        if (cell.type == Cell.Type.Empty){
+            firstClick = false;
+
+        }
+        else{
+            NewGame();
+            FirstClick();
+
+        }
+
     }
 
     private void Flag()
