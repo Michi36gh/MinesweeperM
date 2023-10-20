@@ -37,7 +37,7 @@ public class Game : MonoBehaviour
         GenerateNumbers();
 
         Camera.main.transform.position = new Vector3(width / 2f, height / 2f, -10f);
-        board.Draw(state);
+        board.Draw(state); // hier soll der erste reveal eine 0 sein
     }
 
     private void GenerateCells()
@@ -135,8 +135,10 @@ public class Game : MonoBehaviour
         else if (!gameover)
         {
             if (Input.GetMouseButtonDown(1)) {
+                
                 Flag();
             } else if (Input.GetMouseButtonDown(0)) {
+                //if (Cell.Type.) //!!!!!!!!!!!!!!!!!!!!!!!!!!! wenn erstes feld nicht null dann NewGame()
                 Reveal();
             }
         }
@@ -240,6 +242,8 @@ public class Game : MonoBehaviour
                 }
             }
         }
+
+        // hier noch Game over Screne einfuegen! + kurz warten und dann Game over einblenden, dass man noch alle Bomben sieht
     }
 
     private void CheckWinCondition()
